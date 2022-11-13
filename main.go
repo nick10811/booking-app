@@ -3,7 +3,7 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strings"
+	"strconv"
 )
 
 // package level variable (global)
@@ -15,7 +15,8 @@ var remainingTickets uint = 50       // non-negative
 // array: fixed size
 // var bookings [50]string // attendees
 // slice (abstraction of array): dynamic size
-var bookings = []string{}
+// var bookings = []string{}
+var bookings = make([]map[string]string, 0) // list of maps
 
 func main() {
 	// %T prints data type
@@ -70,8 +71,8 @@ func getFirstNames() []string {
 	firstNames := []string{}
 	// for-each
 	for _, booking := range bookings {
-		var names = strings.Fields(booking)
-		firstNames = append(firstNames, names[0])
+		// var names = strings.Fields(booking)
+		firstNames = append(firstNames, booking["firstName"])
 	}
 	return firstNames
 }
@@ -102,7 +103,17 @@ func getUserInput() (string, string, string, uint) {
 func bookTicket(userTickets uint, firstName string, lastName string, userEmail string) {
 	// remainingTickets = remainingTickets - uint(userTickets)
 	remainingTickets -= userTickets
-	bookings = append(bookings, firstName+" "+lastName)
+
+	// create a map for a user
+	// map[key]value
+	// Go can't mix data type
+	var userData = make(map[string]string)
+	userData["firstName"] = firstName
+	userData["lastName"] = lastName
+	userData["email"] = userEmail
+	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+
+	bookings = append(bookings, userData)
 
 	// fmt.Println(remainingTickets)  // print value of remainingTickets
 	// fmt.Println(&remainingTickets) // print memory address of remainingTickets
