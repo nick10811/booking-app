@@ -40,7 +40,8 @@ func main() {
 
 		if isValidName && isValidEmail && isValidTicketNumber {
 			bookTicket(userTickets, firstName, lastName, userEmail)
-			sendTicket(userTickets, firstName, lastName, userEmail)
+			// make a concurrent process
+			go sendTicket(userTickets, firstName, lastName, userEmail)
 
 			// call function print first names
 			firstNames := getFirstNames()
