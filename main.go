@@ -18,11 +18,7 @@ func main() {
 
 	// %T prints data type
 	// fmt.Printf("conferenceTickets is %T, remainingTickets is %T, conferenceName is %T\n", conferenceTickets, remainingTickets, conferenceName)
-
-	fmt.Println("Welcome to ", conferenceName, "booking application")
-	// %v default format
-	fmt.Printf("We have total of %v tickets and %v are still available.\n", conferenceTickets, remainingTickets)
-	fmt.Println("Get your tickets here to attend")
+	greetUsers(conferenceName, conferenceTickets, remainingTickets)
 
 	// infinite loop: interrupted by ctrl+c
 	// allow users to repeat booking
@@ -101,4 +97,11 @@ func main() {
 		}
 	}
 
+}
+
+func greetUsers(confName string, confTickets int, remainingTickets uint) {
+	fmt.Println("Welcome to ", confName, "booking application")
+	// %v default format
+	fmt.Printf("We have total of %v tickets and %v are still available.\n", confTickets, remainingTickets)
+	fmt.Println("Get your tickets here to attend")
 }
