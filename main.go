@@ -20,7 +20,7 @@ func main() {
 	// You need to tell Go Compiler, the data type when declaring the variable.
 	var userName string
 	var userEmail string
-	var userTickets int
+	var userTickets uint
 
 	// ask user for their name
 	fmt.Print("Enter your name: ")
@@ -32,9 +32,13 @@ func main() {
 	fmt.Scan(&userTickets)
 	// userTickets = 2
 
+	// remainingTickets = remainingTickets - uint(userTickets)
+	remainingTickets -= userTickets
+
 	// fmt.Println(remainingTickets)  // print value of remainingTickets
 	// fmt.Println(&remainingTickets) // print memory address of remainingTickets
 
 	fmt.Printf("Thank you %v for booking %v tickets. You will receive a confirmation email at %v\n", userName, userTickets, userEmail)
+	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 
 }
