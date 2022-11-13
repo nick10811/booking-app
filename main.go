@@ -27,24 +27,7 @@ func main() {
 		isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, userEmail, userTickets, remainingTickets)
 
 		if isValidName && isValidEmail && isValidTicketNumber {
-			// remainingTickets = remainingTickets - uint(userTickets)
-			remainingTickets -= userTickets
-			bookings = append(bookings, firstName+" "+lastName)
-
-			// fmt.Println(remainingTickets)  // print value of remainingTickets
-			// fmt.Println(&remainingTickets) // print memory address of remainingTickets
-
-			// fmt.Printf("The whole array: %v\n", bookings)   // [Nick ]
-			// fmt.Printf("The first value: %v\n", bookings[0])
-			// fmt.Printf("Array type: %T\n", bookings)        // [50]string
-			// fmt.Printf("Array length: %d\n", len(bookings)) // 50
-			// fmt.Printf("The whole slice: %v\n", bookings)   // [Nick]
-			// fmt.Printf("The first value: %v\n", bookings[0])
-			// fmt.Printf("Slice type: %T\n", bookings)        // []string
-			// fmt.Printf("Slice length: %d\n", len(bookings)) // 1
-
-			fmt.Printf("Thank you %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, userTickets, userEmail)
-			fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
+			bookTicket(remainingTickets, userTickets, bookings, firstName, lastName, userEmail, conferenceName)
 
 			// call function print first names
 			firstNames := getFirstNames(bookings)
@@ -120,4 +103,25 @@ func getUserInput() (string, string, string, uint) {
 	fmt.Scan(&userTickets)
 
 	return firstName, lastName, userEmail, userTickets
+}
+
+func bookTicket(remainingTickets uint, userTickets uint, bookings []string, firstName string, lastName string, userEmail string, confName string) {
+	// remainingTickets = remainingTickets - uint(userTickets)
+	remainingTickets -= userTickets
+	bookings = append(bookings, firstName+" "+lastName)
+
+	// fmt.Println(remainingTickets)  // print value of remainingTickets
+	// fmt.Println(&remainingTickets) // print memory address of remainingTickets
+
+	// fmt.Printf("The whole array: %v\n", bookings)   // [Nick ]
+	// fmt.Printf("The first value: %v\n", bookings[0])
+	// fmt.Printf("Array type: %T\n", bookings)        // [50]string
+	// fmt.Printf("Array length: %d\n", len(bookings)) // 50
+	// fmt.Printf("The whole slice: %v\n", bookings)   // [Nick]
+	// fmt.Printf("The first value: %v\n", bookings[0])
+	// fmt.Printf("Slice type: %T\n", bookings)        // []string
+	// fmt.Printf("Slice length: %d\n", len(bookings)) // 1
+
+	fmt.Printf("Thank you %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, userTickets, userEmail)
+	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, confName)
 }
