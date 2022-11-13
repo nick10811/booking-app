@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	// Type Inference: Go can infer the type when you assign a value
@@ -26,13 +29,16 @@ func main() {
 	for {
 		// Go is a statically typed language
 		// You need to tell Go Compiler, the data type when declaring the variable.
-		var userName string
+		var firstName string
+		var lastName string
 		var userEmail string
 		var userTickets uint
 
 		// ask user for their name
-		fmt.Print("Enter your name: ")
-		fmt.Scan(&userName)
+		fmt.Print("Enter your first name: ")
+		fmt.Scan(&firstName)
+		fmt.Print("Enter your last name: ")
+		fmt.Scan(&lastName)
 		// userName = "Tom"
 		fmt.Print("Enter your email address: ")
 		fmt.Scan(&userEmail)
@@ -42,7 +48,7 @@ func main() {
 
 		// remainingTickets = remainingTickets - uint(userTickets)
 		remainingTickets -= userTickets
-		bookings = append(bookings, userName)
+		bookings = append(bookings, firstName+" "+lastName)
 
 		// fmt.Println(remainingTickets)  // print value of remainingTickets
 		// fmt.Println(&remainingTickets) // print memory address of remainingTickets
@@ -56,10 +62,16 @@ func main() {
 		// fmt.Printf("Slice type: %T\n", bookings)        // []string
 		// fmt.Printf("Slice length: %d\n", len(bookings)) // 1
 
-		fmt.Printf("Thank you %v for booking %v tickets. You will receive a confirmation email at %v\n", userName, userTickets, userEmail)
+		fmt.Printf("Thank you %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, userTickets, userEmail)
 		fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 
-		fmt.Printf("These are all our bookings: %v\n", bookings)
+		firstNames := []string{}
+		// for-each
+		for _, booking := range bookings {
+			var names = strings.Fields(booking)
+			firstNames = append(firstNames, names[0])
+		}
+		fmt.Printf("The first names of bookings are: %v\n", firstNames)
 	}
 
 }
