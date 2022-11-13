@@ -67,12 +67,8 @@ func main() {
 			fmt.Printf("Thank you %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, userTickets, userEmail)
 			fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 
-			firstNames := []string{}
-			// for-each
-			for _, booking := range bookings {
-				var names = strings.Fields(booking)
-				firstNames = append(firstNames, names[0])
-			}
+			// call function print first names
+			firstNames := getFirstNames(bookings)
 			fmt.Printf("The first names of bookings are: %v\n", firstNames)
 
 			// boolean
@@ -104,4 +100,14 @@ func greetUsers(confName string, confTickets int, remainingTickets uint) {
 	// %v default format
 	fmt.Printf("We have total of %v tickets and %v are still available.\n", confTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend")
+}
+
+func getFirstNames(bookings []string) []string {
+	firstNames := []string{}
+	// for-each
+	for _, booking := range bookings {
+		var names = strings.Fields(booking)
+		firstNames = append(firstNames, names[0])
+	}
+	return firstNames
 }
