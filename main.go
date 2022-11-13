@@ -23,25 +23,7 @@ func main() {
 	// infinite loop: interrupted by ctrl+c
 	// allow users to repeat booking
 	for {
-		// Go is a statically typed language
-		// You need to tell Go Compiler, the data type when declaring the variable.
-		var firstName string
-		var lastName string
-		var userEmail string
-		var userTickets uint
-
-		fmt.Print("Enter your first name: ")
-		fmt.Scan(&firstName)
-
-		fmt.Print("Enter your last name: ")
-		fmt.Scan(&lastName)
-
-		fmt.Print("Enter your email address: ")
-		fmt.Scan(&userEmail)
-
-		fmt.Print("Enter number of tickets: ")
-		fmt.Scan(&userTickets)
-
+		firstName, lastName, userEmail, userTickets := getUserInput()
 		isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, userEmail, userTickets, remainingTickets)
 
 		if isValidName && isValidEmail && isValidTicketNumber {
@@ -115,4 +97,27 @@ func validateUserInput(firstName string, lastName string, userEmail string, user
 	isValidEmail := strings.Contains(userEmail, "@")
 	isValidTicketNumber := userTickets > 0 && userTickets <= remainingTickets // positive number + greater than 0
 	return isValidName, isValidEmail, isValidTicketNumber
+}
+
+func getUserInput() (string, string, string, uint) {
+	// Go is a statically typed language
+	// You need to tell Go Compiler, the data type when declaring the variable.
+	var firstName string
+	var lastName string
+	var userEmail string
+	var userTickets uint
+
+	fmt.Print("Enter your first name: ")
+	fmt.Scan(&firstName)
+
+	fmt.Print("Enter your last name: ")
+	fmt.Scan(&lastName)
+
+	fmt.Print("Enter your email address: ")
+	fmt.Scan(&userEmail)
+
+	fmt.Print("Enter number of tickets: ")
+	fmt.Scan(&userTickets)
+
+	return firstName, lastName, userEmail, userTickets
 }
