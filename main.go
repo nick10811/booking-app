@@ -5,32 +5,33 @@ import (
 	"strings"
 )
 
-func main() {
-	// Type Inference: Go can infer the type when you assign a value
-	conferenceName := "Go Conference" // syntactic suger
-	const conferenceTickets = 50      // total of attendee
-	var remainingTickets uint = 50    // non-negative
-	// var variable_name [size]variable_type
-	// array: fixed size
-	// var bookings [50]string // attendees
-	// slice (abstraction of array): dynamic size
-	bookings := []string{}
+// package level variable (global)
+// Type Inference: Go can infer the type when you assign a value
+var conferenceName = "Go Conference" // syntactic suger
+const conferenceTickets = 50         // total of attendee
+var remainingTickets uint = 50       // non-negative
+// var variable_name [size]variable_type
+// array: fixed size
+// var bookings [50]string // attendees
+// slice (abstraction of array): dynamic size
+var bookings = []string{}
 
+func main() {
 	// %T prints data type
 	// fmt.Printf("conferenceTickets is %T, remainingTickets is %T, conferenceName is %T\n", conferenceTickets, remainingTickets, conferenceName)
-	greetUsers(conferenceName, conferenceTickets, remainingTickets)
+	greetUsers()
 
 	// infinite loop: interrupted by ctrl+c
 	// allow users to repeat booking
 	for {
 		firstName, lastName, userEmail, userTickets := getUserInput()
-		isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, userEmail, userTickets, remainingTickets)
+		isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, userEmail, userTickets)
 
 		if isValidName && isValidEmail && isValidTicketNumber {
-			bookTicket(remainingTickets, userTickets, bookings, firstName, lastName, userEmail, conferenceName)
+			bookTicket(userTickets, firstName, lastName, userEmail)
 
 			// call function print first names
-			firstNames := getFirstNames(bookings)
+			firstNames := getFirstNames()
 			fmt.Printf("The first names of bookings are: %v\n", firstNames)
 
 			// boolean
@@ -57,14 +58,14 @@ func main() {
 
 }
 
-func greetUsers(confName string, confTickets int, remainingTickets uint) {
-	fmt.Println("Welcome to ", confName, "booking application")
+func greetUsers() {
+	fmt.Println("Welcome to ", conferenceName, "booking application")
 	// %v default format
-	fmt.Printf("We have total of %v tickets and %v are still available.\n", confTickets, remainingTickets)
+	fmt.Printf("We have total of %v tickets and %v are still available.\n", conferenceTickets, remainingTickets)
 	fmt.Println("Get your tickets here to attend")
 }
 
-func getFirstNames(bookings []string) []string {
+func getFirstNames() []string {
 	firstNames := []string{}
 	// for-each
 	for _, booking := range bookings {
@@ -74,7 +75,7 @@ func getFirstNames(bookings []string) []string {
 	return firstNames
 }
 
-func validateUserInput(firstName string, lastName string, userEmail string, userTickets uint, remainingTickets uint) (bool, bool, bool) {
+func validateUserInput(firstName string, lastName string, userEmail string, userTickets uint) (bool, bool, bool) {
 	// validate user input
 	isValidName := len(firstName) >= 2 && len(lastName) >= 2
 	isValidEmail := strings.Contains(userEmail, "@")
@@ -105,7 +106,7 @@ func getUserInput() (string, string, string, uint) {
 	return firstName, lastName, userEmail, userTickets
 }
 
-func bookTicket(remainingTickets uint, userTickets uint, bookings []string, firstName string, lastName string, userEmail string, confName string) {
+func bookTicket(userTickets uint, firstName string, lastName string, userEmail string) {
 	// remainingTickets = remainingTickets - uint(userTickets)
 	remainingTickets -= userTickets
 	bookings = append(bookings, firstName+" "+lastName)
@@ -123,5 +124,5 @@ func bookTicket(remainingTickets uint, userTickets uint, bookings []string, firs
 	// fmt.Printf("Slice length: %d\n", len(bookings)) // 1
 
 	fmt.Printf("Thank you %v for booking %v tickets. You will receive a confirmation email at %v\n", firstName, userTickets, userEmail)
-	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, confName)
+	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 }
