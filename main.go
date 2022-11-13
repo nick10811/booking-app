@@ -7,6 +7,11 @@ func main() {
 	conferenceName := "Go Conference" // syntactic suger
 	const conferenceTickets = 50      // total of attendee
 	var remainingTickets uint = 50    // non-negative
+	// var variable_name [size]variable_type
+	// array: fixed size
+	// var bookings [50]string // attendees
+	// slice (abstraction of array): dynamic size
+	bookings := []string{}
 
 	// %T prints data type
 	// fmt.Printf("conferenceTickets is %T, remainingTickets is %T, conferenceName is %T\n", conferenceTickets, remainingTickets, conferenceName)
@@ -34,11 +39,23 @@ func main() {
 
 	// remainingTickets = remainingTickets - uint(userTickets)
 	remainingTickets -= userTickets
+	bookings = append(bookings, userName)
 
 	// fmt.Println(remainingTickets)  // print value of remainingTickets
 	// fmt.Println(&remainingTickets) // print memory address of remainingTickets
 
+	// fmt.Printf("The whole array: %v\n", bookings)   // [Nick ]
+	// fmt.Printf("The first value: %v\n", bookings[0])
+	// fmt.Printf("Array type: %T\n", bookings)        // [50]string
+	// fmt.Printf("Array length: %d\n", len(bookings)) // 50
+	// fmt.Printf("The whole slice: %v\n", bookings)   // [Nick]
+	// fmt.Printf("The first value: %v\n", bookings[0])
+	// fmt.Printf("Slice type: %T\n", bookings)        // []string
+	// fmt.Printf("Slice length: %d\n", len(bookings)) // 1
+
 	fmt.Printf("Thank you %v for booking %v tickets. You will receive a confirmation email at %v\n", userName, userTickets, userEmail)
 	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
+
+	fmt.Printf("These are all our bookings: %v\n", bookings)
 
 }
