@@ -3,7 +3,6 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strconv"
 )
 
 // package level variable (global)
@@ -16,7 +15,16 @@ var remainingTickets uint = 50       // non-negative
 // var bookings [50]string // attendees
 // slice (abstraction of array): dynamic size
 // var bookings = []string{}
-var bookings = make([]map[string]string, 0) // list of maps
+// var bookings = make([]map[string]string, 0) // list of maps
+var bookings = make([]UserData, 0)
+
+// mixed data type by structure
+type UserData struct {
+	firstName       string
+	lastName        string
+	email           string
+	numberOfTickets uint
+}
 
 func main() {
 	// %T prints data type
@@ -72,7 +80,8 @@ func getFirstNames() []string {
 	// for-each
 	for _, booking := range bookings {
 		// var names = strings.Fields(booking)
-		firstNames = append(firstNames, booking["firstName"])
+		// firstNames = append(firstNames, booking["firstName"])
+		firstNames = append(firstNames, booking.firstName)
 	}
 	return firstNames
 }
@@ -106,12 +115,19 @@ func bookTicket(userTickets uint, firstName string, lastName string, userEmail s
 
 	// create a map for a user
 	// map[key]value
-	// Go can't mix data type
-	var userData = make(map[string]string)
-	userData["firstName"] = firstName
-	userData["lastName"] = lastName
-	userData["email"] = userEmail
-	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+	// Go can't mix data type in map
+	// var userData = make(map[string]string)
+	// userData["firstName"] = firstName
+	// userData["lastName"] = lastName
+	// userData["email"] = userEmail
+	// userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+
+	var userData = UserData{
+		firstName:       firstName,
+		lastName:        lastName,
+		email:           userEmail,
+		numberOfTickets: userTickets,
+	}
 
 	bookings = append(bookings, userData)
 
